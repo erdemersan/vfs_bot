@@ -19,7 +19,7 @@ result_lines = [
     f"HTTP: {status}",
     f"ARANAN_METIN: {CHECK_TEXT}",
     f"BULUNDU_MU: {'EVET' if found else 'HAYIR'}",
-    f"ILK_500_KARAKTER: {snippet}",
+    f"ILK_50000_KARAKTER: {snippet}",
 ]
 
 result_text = "\n".join(result_lines)
