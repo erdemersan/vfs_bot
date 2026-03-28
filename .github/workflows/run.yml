@@ -10,8 +10,8 @@ jobs:
     runs-on: ubuntu-latest
 
     env:
-      TARGET_URL: "https://example.com"
-      CHECK_TEXT: "Example Domain"
+      TARGET_URL: "https://www.digikey.com/en/maker/projects/realtime-gps-tracker-with-raspberry-pi-pico-sim800l-gsm-module/d133a048a1ef4f40bb14e3be15be7467?utm_campaign=real-time_gps_tracker_wit&utm_content=digikey&utm_medium=social&utm_source=twitter"
+      CHECK_TEXT: "Project Overview"
 
     steps:
       - name: Repo'yu çek
