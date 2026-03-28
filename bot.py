@@ -12,7 +12,7 @@ r = requests.get(URL, headers=headers, timeout=30)
 
 status = r.status_code
 found = CHECK_TEXT in r.text
-snippet = r.text[:500].replace("\n", " ").replace("\r", " ")
+snippet = r.text[:50000].replace("\n", " ").replace("\r", " ")
 
 result_lines = [
     f"URL: {URL}",
