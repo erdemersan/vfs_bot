@@ -1,21 +1,34 @@
+import os
 import requests
 
-URL = "https://www.digikey.com/en/maker/projects/realtime-gps-tracker-with-raspberry-pi-pico-sim800l-gsm-module/d133a048a1ef4f40bb14e3be15be7467?utm_campaign=real-time_gps_tracker_wit&utm_content=digikey&utm_medium=social&utm_source=twitter"
+URL = os.getenv("TARGET_URL", "https://example.com")
+CHECK_TEXT = os.getenv("CHECK_TEXT", "Example Domain")
 
 headers = {
     "User-Agent": "Mozilla/5.0"
 }
 
-try:
-    r = requests.get(URL, headers=headers, timeout=30)
-    print("HTTP status:", r.status_code)
-    print("İlk 1000 karakter:")
-    print(r.text[:1000])
+r = requests.get(URL, headers=headers, timeout=30)
 
-    if "No appointments available" in r.text:
-        print("Sonuç: Randevu yok metni bulundu")
-    else:
-        print("Sonuç: Randevu yok metni bulunamadı")
-except Exception as e:
-    print("Hata oluştu:", str(e))
-    raise
+status = r.status_code
+found = CHECK_TEXT in r.text
+snippet = r.text[:500].replace("\n", " ").replace("\r", " ")
+
+result_lines = [
+    f"URL: {URL}",
+    f"HTTP: {status}",
+    f"ARANAN_METIN: {CHECK_TEXT}",
+    f"BULUNDU_MU: {'EVET' if found else 'HAYIR'}",
+    f"ILK_500_KARAKTER: {snippet}",
+]
+
+result_text = "\n".join(result_lines)
+print(result_text)
+
+summary_path = os.getenv("GITHUB_STEP_SUMMARY")
+if summary_path:
+    with open(summary_path, "a", encoding="utf-8") as f:
+        f.write("## Sonuç\n\n")
+        f.write("```\n")
+        f.write(result_text)
+        f.write("\n```\n")
