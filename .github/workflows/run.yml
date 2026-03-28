@@ -8,8 +8,10 @@ on:
 jobs:
   run-bot:
     runs-on: ubuntu-latest
+
     env:
-      FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: "true"
+      TARGET_URL: "https://example.com"
+      CHECK_TEXT: "Example Domain"
 
     steps:
       - name: Repo'yu çek
